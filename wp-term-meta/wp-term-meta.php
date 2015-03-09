@@ -21,7 +21,7 @@ License: GPLv2 or later
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/ 
+*/
 class WP_Term_Meta {
 	const post_type = '_term_meta';
 
@@ -39,7 +39,7 @@ class WP_Term_Meta {
 		// Get or create the post whose name is _meta_{$taxonomy}_{$term_id}.
 		//
 		// This naming format is used to take advantage of the index on post_name
-		// so we can quickly pull the meta-containing post object from a known post object.
+		// so we can quickly pull the meta-containing post object from a known term object.
 		//
 		// Conversely, if we need to do a search on meta (which is non-optimal,) we can
 		// easily extract the correct taxonomy and term from the post_name
