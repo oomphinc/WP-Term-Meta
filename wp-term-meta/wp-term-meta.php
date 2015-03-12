@@ -70,10 +70,11 @@ class WP_Term_Meta {
 	/**
 	 * Update a term meta
 	 */
-	static function update( $term_id, $taxonomy, $key_or_array = null, $value = null ) {
+	static function update( $term_id, $taxonomy, $key_or_array = null, $value = null, $prev_value = '' ) {
 		// Allow first argument to be term object instead, which then the second and
 		// third arguments become the key and possible value instead
 		if( is_object( $term_id ) ) {
+			$prev_value = $value;
 			$value = $key_or_array;
 			$key_or_array = $taxonomy;
 		}
@@ -87,10 +88,10 @@ class WP_Term_Meta {
 
 			foreach( $key_or_array as $key => $value ) {
 				if( isset( $value ) ) {
-					update_post_meta( $post->ID, $key, $value );
+					update_post_meta( $post->ID, $key, $value, $prev_value );
 				}
 				else {
-					delete_post_meta( $post->ID, $key );
+					delete_post_meta( $post->ID, $key, $prev_value );
 				}
 			}
 
@@ -106,8 +107,9 @@ class WP_Term_Meta {
 	 *
 	 * @return mixed|null
 	 */
-	static function get( $term_id, $taxonomy = null, $key = null ) {
+	static function get( $term_id, $taxonomy = null, $key = null, $prev_value = null ) {
 		if( is_object( $term_id ) ) {
+			$prev_value = $key;
 			$key = $taxonomy;
 		}
 
