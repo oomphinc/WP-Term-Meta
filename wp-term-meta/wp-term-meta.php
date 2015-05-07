@@ -27,6 +27,7 @@ class WP_Term_Meta {
 
 	static function init() {
 		register_post_type( self::post_type, array( 'public' => false ) );
+		register_post_status( self::post_type, array( 'public' => true ) );
 	}
 
 	private static function _post( $term_id, $taxonomy = null ) {
@@ -47,7 +48,7 @@ class WP_Term_Meta {
 
 		$post_query = new WP_Query( array(
 			'post_type' => self::post_type,
-			'post_status' => 'draft',
+			'post_status' => self::post_type,
 			'posts_per_page' => 1,
 			'name' => $post_name
 		) );
@@ -55,16 +56,17 @@ class WP_Term_Meta {
 		if( $post_query->have_posts() ) {
 			$post = $post_query->next_post();
 		}
-		else {
+		else if( current_user_can( 'edit_posts' ) ) {
 			$post_id = wp_insert_post( array(
 				'post_name' => $post_name,
-				'post_type' => self::post_type
+				'post_type' => self::post_type,
+				'post_status' => self::post_type,
 			) );
 
 			$post = get_post( $post_id );
 		}
 
-		return $post;
+		return isset( $post ) ? $post : null;
 	}
 
 	/**
