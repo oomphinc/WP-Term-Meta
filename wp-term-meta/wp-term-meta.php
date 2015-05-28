@@ -48,13 +48,23 @@ class WP_Term_Meta {
 
 		$post_query = new WP_Query( array(
 			'post_type' => self::post_type,
-			'post_status' => self::post_type,
+			// include draft status to prevent edge case with legacy data
+			// causing a replication bug
+			'post_status' => array( 'draft', self::post_type ),
 			'posts_per_page' => 1,
 			'name' => $post_name
 		) );
 
 		if( $post_query->have_posts() ) {
 			$post = $post_query->next_post();
+
+			// Make sure our post status is updated
+			if ( $post->post_status == 'draft' ) {
+				wp_update_post( array(
+					'ID' => $post->ID,
+					'post_status' => self::post_type,
+				) );
+			}
 		}
 		else if( current_user_can( 'edit_posts' ) ) {
 			$post_id = wp_insert_post( array(
