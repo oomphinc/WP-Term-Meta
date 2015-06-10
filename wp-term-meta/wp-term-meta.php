@@ -145,4 +145,4 @@ class WP_Term_Meta {
 		self::update( $term_id, $taxonomy, $key );
 	}
 }
-add_action( 'init', array( 'WP_Term_Meta', 'init' ) );
+add_action( 'init', array( 'WP_Term_Meta', 'init' ), 0 );
