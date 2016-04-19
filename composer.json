@@ -1,6 +1,7 @@
 {
     "name": "oomphinc/wp-term-meta",
     "description": "WP Term Meta that pollutes wp_posts!",
+    "type": "wordpress-muplugin",
     "require": {
     },
     "authors": [
