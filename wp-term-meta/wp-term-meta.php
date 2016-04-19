@@ -3,7 +3,7 @@
 Plugin Name: WP Term Meta
 Description: Lightweight term meta that doesn't depend on new tables or pollute the options table.
 Author: Ben Doherty @ Oomph, Inc.
-Version: 0.0.1
+Version: 0.1.0
 Author URI: http://www.oomphinc.com/thinking/author/bdoherty/
 License: GPLv2 or later
 
