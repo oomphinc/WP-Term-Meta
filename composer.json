@@ -2,7 +2,7 @@
     "name": "oomphinc/wp-term-meta",
     "description": "WP Term Meta that pollutes wp_posts!",
     "require": {
-        "phpunit/phpunit-mock-objects": "2.3"
+        "phpunit/phpunit-mock-objects": "~2.3"
     },
     "authors": [
         {
